@@ -3,6 +3,6 @@ pruebas_idex:
     defaults: {_controller: AppBundle:Pruebas:index, lang: es, name: nombre_defecto, page: 1}
     methods: [GET]
     requirements:
-        name: \w+
+        name: "[a-zA-Z]*"
         page: \d+
         lang: es|en|fr
