@@ -9,9 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 class PruebasController extends Controller
 {
 
-    /**
-     * @Route("/pruebas/index", name="pruebasIndex")
-     */
     public function indexAction(Request $request)
     {
 
