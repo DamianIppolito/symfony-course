@@ -1,7 +1,7 @@
 pruebas_idex:
     path: /pruebas/{lang}/{name}/{page}
     defaults: {_controller: AppBundle:Pruebas:index, lang: es, name: nombre_defecto, page: 1}
-    methods: [GET]
+    methods: [GET, POST]
     requirements:
         name: "[a-zA-Z]*"
         page: \d+
