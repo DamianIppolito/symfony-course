@@ -1,5 +1,28 @@
 {% extends "::layout.html.twig" %}
 {% block container %}
-    {{ parent() }}
+    {{parent()}}
     {{ texto }}
+
+    {#
+    ESTO ES UN COMENTARIO
+    <h1>HOLA</h1>
+    #}
+
+    <hr/>
+    {{ fruta.pera }}
+    {% if fruta.pera ends with "r" %}
+        {{ fruta.manzana }}
+    {% endif %}
+    <hr/>
+    {% set variable = "Hola Twig" %}
+    {{ variable }}
+
+    <hr/>
+    {% if productos|length > 10 %}
+        <ul>
+            {% for producto in productos %}
+                <li>{{ producto.producto }} - {{ producto.precio }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

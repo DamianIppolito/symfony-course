@@ -20,9 +20,21 @@ class PruebasController extends Controller
         var_dump($request->get('hola-post'));
         die();*/
 
+        $productos = array(
+            array("producto"=>"consola 1","precio"=>2),
+            array("producto"=>"consola 2","precio"=>2),
+            array("producto"=>"consola 3","precio"=>2),
+            array("producto"=>"consola 4","precio"=>2),
+            array("producto"=>"consola 5","precio"=>2),
+        );
+
+        $fruta = array("manzana"=>"golden","pera"=>"rica");
+
         // replace this example code with whatever you need
         return $this->render('AppBundle:pruebas:index.html.twig', array(
-            "texto" =>  $name." - ".$page
+            "texto" =>  $name." - ".$page,
+            "productos" => $productos,
+            "fruta" => $fruta
         ));
     }
 }
