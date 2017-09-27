@@ -40,4 +40,7 @@
     {% for i in range(0,25,3) %}
         {{ i }}<br/>
     {% endfor %}
+
+    <hr/>
+    {{ generateTable(productos) | raw }}
 {% endblock %}
