@@ -27,7 +27,11 @@
     {% endif %}
     <hr/>
     {% set fecha = date("-2 days", "Europe/Madrid") %}
-    <pre>{{ dump(fecha) }}</pre>
+    {{ fecha.date | date("d-m-Y") }}
+
+    <hr/>
+    {% set texto = "     asasdasd      ," %}
+    {{ texto | trim(",") }}
 
     <hr/>
     {{ include("AppBundle:pruebas:partial.html.twig") }}
