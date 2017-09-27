@@ -25,4 +25,19 @@
             {% endfor %}
         </ul>
     {% endif %}
+    <hr/>
+    {% set fecha = date("-2 days", "Europe/Madrid") %}
+    <pre>{{ dump(fecha) }}</pre>
+
+    <hr/>
+    {{ include("AppBundle:pruebas:partial.html.twig") }}
+    {{ min([76,99,58]) }}
+
+    <hr/>
+    {{ random(["Batman","Juegos del hambre", "Gran Torino"]) }}
+
+    <hr/>
+    {% for i in range(0,25,3) %}
+        {{ i }}<br/>
+    {% endfor %}
 {% endblock %}
