@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PruebasController extends Controller
 {
 
-    public function indexAction(Request $request, $name, $page)
-    {
+    public function indexAction(Request $request, $name, $page){
 
         //return $this->redirect($this->generateUrl("helloWorld"));
         //return $this->redirect($this->container->get("router")->getContext()->getBaseUrl()."/hello-world?hola=true");
@@ -40,7 +39,6 @@ class PruebasController extends Controller
     }
 
     public function createAction(){
-
         $curso = new Curso();
         $curso->setTitulo("Curso de Symfony3 de Victor Robles");
         $curso->setDescripcion("Curso completo de symfony3");
@@ -54,6 +52,20 @@ class PruebasController extends Controller
         }else{
             echo "El curso se ha creado correctamente";
         }
+
+        die();
+    }
+
+    public function readAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+        $cursos_repo = $em->getRepository("AppBundle:Curso");
+        $cursos = $cursos_repo->findAll();
+        foreach ($cursos as $curso){
+            echo $curso->getTitulo()."<br/>";
+            echo $curso->getDescripcion()."<br/>";
+            echo $curso->getPrecio()."<br/><hr/>";
+        }
+
         die();
     }
 }
