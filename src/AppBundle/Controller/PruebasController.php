@@ -87,4 +87,19 @@ class PruebasController extends Controller
 
         die();
     }
+
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getEntityManager();
+        $cursos_repo = $em->getRepository("AppBundle:Curso");
+        $curso = $cursos_repo->find($id);
+        $em->remove($curso);
+        $flush = $em->flush();
+        if($flush != null){
+            echo "El curso ha fallado al ser eliminado";
+        }else{
+            echo "El curso se ha eliminado correctamente";
+        }
+
+        die();
+    }
 }
