@@ -6,3 +6,7 @@ pruebas_idex:
         name: "[a-zA-Z]*"
         page: \d+
         lang: es|en|fr
+
+pruebas_create:
+    path: /pruebas/create
+    defaults: {_controller: AppBundle:Pruebas:create}

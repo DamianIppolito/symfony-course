@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Curso;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,5 +37,23 @@ class PruebasController extends Controller
             "productos" => $productos,
             "fruta" => $fruta
         ));
+    }
+
+    public function createAction(){
+
+        $curso = new Curso();
+        $curso->setTitulo("Curso de Symfony3 de Victor Robles");
+        $curso->setDescripcion("Curso completo de symfony3");
+        $curso->setPrecio(80);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($curso);
+        $flush = $em->flush();
+        if($flush != null){
+            echo "El curso ha fallado al crease";
+        }else{
+            echo "El curso se ha creado correctamente";
+        }
+        die();
     }
 }
