@@ -68,4 +68,23 @@ class PruebasController extends Controller
 
         die();
     }
+
+    public function updateAction($id, $titulo, $descripcion, $precio){
+        $em = $this->getDoctrine()->getEntityManager();
+        $cursos_repo = $em->getRepository("AppBundle:Curso");
+        $curso = $cursos_repo->find($id);
+        $curso->setTitulo($titulo);
+        $curso->setDescripcion($descripcion);
+        $curso->setPrecio($precio);
+
+        $em->persist($curso);
+        $flush = $em->flush();
+        if($flush != null){
+            echo "El curso ha fallado al actualizarse";
+        }else{
+            echo "El curso se ha actualizado correctamente";
+        }
+
+        die();
+    }
 }
