@@ -109,4 +109,20 @@ class PruebasController extends Controller
 
         die();
     }
+
+    public function nativeSqlAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+        $query = "SELECT * FROM cursos";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+
+        $cursos = $stmt->fetchAll();
+        foreach ($cursos as $curso){
+            echo $curso["titulo"]."</br>";
+        }
+
+        die();
+    }
 }

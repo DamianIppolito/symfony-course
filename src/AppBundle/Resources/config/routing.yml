@@ -22,3 +22,7 @@ pruebas_update:
 pruebas_delete:
     path: /pruebas/delete/{id}
     defaults: {_controller: AppBundle:Pruebas:delete}
+
+pruebas_native:
+    path: /pruebas/native
+    defaults: {_controller: AppBundle:Pruebas:nativeSql}
