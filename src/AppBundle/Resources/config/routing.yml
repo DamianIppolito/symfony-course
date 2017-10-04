@@ -24,5 +24,9 @@ pruebas_delete:
     defaults: {_controller: AppBundle:Pruebas:delete}
 
 pruebas_native:
-    path: /pruebas/native
+    path: /pruebas/native-sql
     defaults: {_controller: AppBundle:Pruebas:nativeSql}
+
+pruebas_dql:
+    path: /pruebas/dql
+    defaults: {_controller: AppBundle:Pruebas:dql}

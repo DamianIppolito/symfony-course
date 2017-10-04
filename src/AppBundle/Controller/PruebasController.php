@@ -125,4 +125,19 @@ class PruebasController extends Controller
 
         die();
     }
+
+    public function dqlAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $query = $em->createQuery("
+            SELECT c FROM AppBundle:Curso c
+            WHERE c.precio > :precio
+        ")->setParameter("precio","80");
+        $cursos = $query->getResult();
+        foreach ($cursos as $curso){
+            echo $curso->getTitulo()."</br>";
+        }
+
+        die();
+    }
 }
