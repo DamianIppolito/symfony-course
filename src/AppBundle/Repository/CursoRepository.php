@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CursoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCursos(){
+        $em = $this->getEntityManager();
+        $query = $this->createQueryBuilder("c")
+            ->where("c.precio > :precio")
+            ->setParameter("precio","79")
+            ->getQuery();
+        $cursos = $query->getResult();
+        return $cursos;
+    }
 }

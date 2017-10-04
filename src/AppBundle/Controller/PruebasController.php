@@ -145,11 +145,13 @@ class PruebasController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $cursos_repo = $em->getRepository("AppBundle:Curso");
 
-        $query = $cursos_repo->createQueryBuilder("c")
-                ->where("c.precio > :precio")
-                ->setParameter("precio","79")
-                ->getQuery();
-        $cursos = $query->getResult();
+//        $query = $cursos_repo->createQueryBuilder("c")
+//            ->where("c.precio > :precio")
+//            ->setParameter("precio","79")
+//            ->getQuery();
+//        $cursos = $query->getResult();
+
+        $cursos = $cursos_repo->getCursos();
         foreach ($cursos as $curso){
             echo $curso->getTitulo()."</br>";
         }
