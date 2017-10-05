@@ -18,7 +18,9 @@ class CursoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titulo',TextType::class)
+            ->add('titulo',TextType::class, array("required"=>"required", "attr"=>array(
+               "class" => "form-titulo"
+            )))
             ->add('descripcion',TextAreaType::class)
             ->add('precio',TextType::class)
             ->add('Guardar', SubmitType::class)
