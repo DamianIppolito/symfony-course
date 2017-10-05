@@ -34,3 +34,7 @@ pruebas_dql:
 pruebas_query_builder:
     path: /pruebas/query-builder
     defaults: {_controller: AppBundle:Pruebas:queryBuilder}
+
+pruebas_form:
+    path: /pruebas/form
+    defaults: {_controller: AppBundle:Pruebas:form}
