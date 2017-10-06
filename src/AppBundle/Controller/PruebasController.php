@@ -7,6 +7,8 @@ use AppBundle\Form\CursoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\Email;
 
 class PruebasController extends Controller
 {
@@ -183,5 +185,20 @@ class PruebasController extends Controller
             "status" => $status,
             "data" => $data
         ));
+    }
+
+    public function validateEmailAction($email){
+        $mailConstraint = new Email();
+        $mailConstraint->message = "pasame un buen correo";
+
+        $error = $this->get("validator")->validate($email, $mailConstraint);
+
+        if(count($error) == 0){
+            echo "Correo Valido";
+        }else{
+            echo $error[0]->getMessage();
+        }
+        die();
+
     }
 }

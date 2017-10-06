@@ -38,3 +38,7 @@ pruebas_query_builder:
 pruebas_form:
     path: /pruebas/form
     defaults: {_controller: AppBundle:Pruebas:form}
+
+pruebas_validate_email:
+    path: /pruebas/validate-email/{email}
+    defaults: {_controller: AppBundle:Pruebas:validateEmail}
