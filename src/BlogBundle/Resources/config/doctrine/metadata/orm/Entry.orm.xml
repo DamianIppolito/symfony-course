@@ -28,12 +28,12 @@
         <option name="fixed"/>
       </options>
     </field>
-    <many-to-one field="user" target-entity="Users" fetch="LAZY">
+    <many-to-one field="user" target-entity="User" fetch="LAZY">
       <join-columns>
         <join-column name="user_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="category" target-entity="Categories" fetch="LAZY">
+    <many-to-one field="category" target-entity="Category" fetch="LAZY">
       <join-columns>
         <join-column name="category_id" referenced-column-name="id"/>
       </join-columns>
