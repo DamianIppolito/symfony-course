@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexOld()
     {
 //        $em = $this->getDoctrine()->getEntityManager();
 //        $entry_repo = $em->getRepository("BlogBundle:Entry");
@@ -50,6 +50,10 @@ class DefaultController extends Controller
         }
 
         die();
+        return $this->render('BlogBundle:Default:index.html.twig');
+    }
+
+    public function indexAction(){
         return $this->render('BlogBundle:Default:index.html.twig');
     }
 }
