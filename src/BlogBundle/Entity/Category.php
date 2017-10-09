@@ -1,6 +1,7 @@
 <?php
 
 namespace BlogBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Category
@@ -21,6 +22,16 @@ class Category
      * @var string
      */
     private $description;
+
+    protected $entry;
+
+    /**
+     * Category constructor.
+     */
+    public function __construct()
+    {
+        $this->entry = ArrayCollection();
+    }
 
 
     /**
@@ -79,6 +90,22 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntry()
+    {
+        return $this->entry;
+    }
+
+    /**
+     * @param mixed $entry
+     */
+    public function setEntry($entry)
+    {
+        $this->entry = $entry;
     }
 }
 
