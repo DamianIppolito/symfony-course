@@ -1,6 +1,7 @@
 <?php
 
 namespace BlogBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Entry
@@ -41,6 +42,16 @@ class Entry
      * @var \BlogBundle\Entity\User
      */
     private $user;
+
+    protected $entryTag;
+
+    /**
+     * Entry constructor.
+     */
+    public function __construct()
+    {
+        $this->entryTag = new ArrayCollection();
+    }
 
 
     /**
@@ -195,6 +206,23 @@ class Entry
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEntryTag()
+    {
+        return $this->entryTag;
+    }
+
+    /**
+     * @param ArrayCollection $entryTag
+     */
+    public function setEntryTag(\BlogBundle\Entity\Tag $entryTag)
+    {
+        $this->entryTag[] = $entryTag;
+        return $this;
     }
 }
 
