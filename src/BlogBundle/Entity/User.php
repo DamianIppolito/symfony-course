@@ -1,11 +1,11 @@
 <?php
 
 namespace BlogBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -42,6 +42,32 @@ class User
      */
     private $image;
 
+    // AUTH
+
+    public function getUserName(){
+        return $this->email;
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function getRoles(){
+        return array($this->getRole());
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    // ENDAUTH
 
     /**
      * Get id
