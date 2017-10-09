@@ -33,12 +33,12 @@ class Entry
     private $image;
 
     /**
-     * @var \BlogBundle\Entity\Categories
+     * @var \BlogBundle\Entity\Category
      */
     private $category;
 
     /**
-     * @var \BlogBundle\Entity\Users
+     * @var \BlogBundle\Entity\User
      */
     private $user;
 
@@ -152,11 +152,11 @@ class Entry
     /**
      * Set category
      *
-     * @param \BlogBundle\Entity\Categories $category
+     * @param \BlogBundle\Entity\Category $category
      *
      * @return Entry
      */
-    public function setCategory(\BlogBundle\Entity\Categories $category = null)
+    public function setCategory(\BlogBundle\Entity\Category $category = null)
     {
         $this->category = $category;
 
@@ -166,7 +166,7 @@ class Entry
     /**
      * Get category
      *
-     * @return \BlogBundle\Entity\Categories
+     * @return \BlogBundle\Entity\Category
      */
     public function getCategory()
     {
@@ -176,11 +176,11 @@ class Entry
     /**
      * Set user
      *
-     * @param \BlogBundle\Entity\Users $user
+     * @param \BlogBundle\Entity\User $user
      *
      * @return Entry
      */
-    public function setUser(\BlogBundle\Entity\Users $user = null)
+    public function setUser(\BlogBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -190,7 +190,7 @@ class Entry
     /**
      * Get user
      *
-     * @return \BlogBundle\Entity\Users
+     * @return \BlogBundle\Entity\User
      */
     public function getUser()
     {
