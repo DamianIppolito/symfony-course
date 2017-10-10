@@ -1,0 +1,26 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="col-lg-6">
+        <h2>Todas las Etiquetas</h2>
+        <hr/>
+        <a href="{{ path("blog_add_tag") }}" class="btn btn-success">Añadir etiqueta</a>
+        <hr/>
+        {% for message in app.session.flashbag().get("status") %}
+            <dvi class="alert alert-{{ app.session.flashbag().get("messagebox")[0] }}">{{ message }}</dvi>
+        {% endfor %}
+        <table class="table table-bordered">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+            </tr>
+            {% for tag in tags %}
+                <tr>
+                    <td>{{ tag.name }}</td>
+                    <td>{{ tag.description }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}
