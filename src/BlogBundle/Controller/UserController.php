@@ -54,17 +54,22 @@ class UserController extends Controller
                     $flush = $em->flush();
                     if ($flush == null) {
                         $status = "El usuario se ha creado correctamente";
+                        $messagebox = "success";
                     } else {
                         $status = "El usuario no se ha creado correctamente";
+                        $messagebox = "danger";
                     }
                 }else{
                     $status = "El usuario ya existe";
+                    $messagebox = "danger";
                 }
             } else {
                 $status = "El usuario no se ha creado correctamente";
+                $messagebox = "danger";
             }
 
             $this->session->getFlashBag()->add("status", $status);
+            $this->session->getFlashBag()->add("messagebox", $messagebox);
         }
         return $this->render("BlogBundle:User:login.html.twig", array(
             "error" => $error,

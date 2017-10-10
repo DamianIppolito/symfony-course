@@ -26,7 +26,7 @@
         <h2>Registrate</h2>
         <hr/>
         {% for message in app.session.flashbag().get("status") %}
-            <dvi class="alert alert-success">{{ message }}</dvi>
+            <dvi class="alert alert-{{ app.session.flashbag().get("messagebox")[0] }}">{{ message }}</dvi>
         {% endfor %}
         {{ form_start(form) }}
         {{ form_end(form) }}
