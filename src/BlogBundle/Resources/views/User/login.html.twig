@@ -2,11 +2,11 @@
 {% block content %}
 
     {% if is_granted("ROLE_USER") %}
-        <strong>Estas logado com o usuario normal</strong>
+        <strong>Estas logado como usuario normal</strong>
     {% endif %}
 
     {% if is_granted("ROLE_ADMIN") %}
-        <strong>Estas logado com o usuario administrador</strong>
+        <strong>Estas logado como usuario administrador</strong>
     {% endif %}
 
     <div class="col-lg-4">

@@ -36,31 +36,37 @@ class EntryController extends Controller
 
         if($form->isSubmitted()) {
             if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+                $category_repo = $em->getRepository("BlogBundle:Category");
+                $category = $category_repo->find($form->get("category")->getData());
+                $user = $this->getUser();
 
-//                $em = $this->getDoctrine()->getEntityManager();
-//
-//                $entry = new Entry();
-//                $entry->setTitle($form->get("title")->getData());
-//                $entry->setContent($form->get("content")->getData());
-//
-//                $em->persist($entry);
-//                $flush = $em->flush();
-//                if($flush == null){
-//                    $status = "La categoría se ha creado correctamente";
-//                    $messagebox = 'success';
-//                }else{
-//                    $status = "Error al añadir la nueva categoría";
-//                    $messagebox = 'danger';
-//                }
+                $entry = new Entry();
+                $entry->setTitle($form->get("title")->getData());
+                $entry->setContent($form->get("content")->getData());
+                $entry->setStatus($form->get("status")->getData());
+                $entry->setImage(null);
+                $entry->setCategory($category);
+                $entry->setUser($user);
+
+                $em->persist($entry);
+                $flush = $em->flush();
+                if($flush == null){
+                    $status = "La categoría se ha creado correctamente";
+                    $messagebox = 'success';
+                }else{
+                    $status = "Error al añadir la nueva categoría";
+                    $messagebox = 'danger';
+                }
             }else{
                 $status = "La categoría no se ha creado porque hay fallos de validación";
                 $messagebox = 'danger';
             }
 
-//            $this->session->getFlashBag()->add("status", $status);
-//            $this->session->getFlashBag()->add("messagebox", $messagebox);
-//
-//            return $this->redirectToRoute('blog_index_category');
+            $this->session->getFlashBag()->add("status", $status);
+            $this->session->getFlashBag()->add("messagebox", $messagebox);
+
+            //return $this->redirectToRoute('blog_index_category');
         }
 
         return $this->render("BlogBundle:Entry:add.html.twig", array(
