@@ -30,7 +30,7 @@ class Category
      */
     public function __construct()
     {
-        $this->entry = ArrayCollection();
+        $this->entry = new ArrayCollection();
     }
 
 
