@@ -38,6 +38,10 @@ class EntryController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getEntityManager();
                 $category_repo = $em->getRepository("BlogBundle:Category");
+                $file = $form['image']->getData();
+                $ext = $file->guessExtension();
+                $file_name = time().".".$ext;
+                $file->move('uploads',$file_name);
                 $category = $category_repo->find($form->get("category")->getData());
                 $user = $this->getUser();
 
@@ -45,7 +49,7 @@ class EntryController extends Controller
                 $entry->setTitle($form->get("title")->getData());
                 $entry->setContent($form->get("content")->getData());
                 $entry->setStatus($form->get("status")->getData());
-                $entry->setImage(null);
+                $entry->setImage($file_name);
                 $entry->setCategory($category);
                 $entry->setUser($user);
 
