@@ -20,11 +20,11 @@ class EntryController extends Controller
     public function indexAction(){
 
         $em = $this->getDoctrine()->getEntityManager();
-        $category_repo = $em->getRepository("BlogBundle:Category");
-        $categories = $category_repo->findAll();
+        $entry_repo = $em->getRepository("BlogBundle:Entry");
+        $entries = $entry_repo->findAll();
 
-        return $this->render("BlogBundle:Category:index.html.twig", array(
-            "categories" => $categories
+        return $this->render("BlogBundle:Entry:index.html.twig", array(
+            "entries" => $entries
         ));
     }
 
@@ -79,7 +79,7 @@ class EntryController extends Controller
             $this->session->getFlashBag()->add("status", $status);
             $this->session->getFlashBag()->add("messagebox", $messagebox);
 
-            //return $this->redirectToRoute('blog_index_category');
+            return $this->redirectToRoute('blog_homepage');
         }
 
         return $this->render("BlogBundle:Entry:add.html.twig", array(
