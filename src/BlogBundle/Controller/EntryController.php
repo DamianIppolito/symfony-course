@@ -92,13 +92,17 @@ class EntryController extends Controller
 
     public function deleteAction($id){
         $em = $this->getDoctrine()->getEntityManager();
-        $category_repo = $em->getRepository("BlogBundle:Category");
-        $category = $category_repo->find($id);
-        if(count($category->getEntry()) == 0){
-            $em->remove($category);
+        $entry_repo = $em->getRepository("BlogBundle:Entry");
+        $entry_tag_repo = $em->getRepository("BlogBundle:EntryTag");
+        $entry = $entry_repo->find($id);
+        $entry_tags = $entry_tag_repo->findBy(array("entry"=>$entry));
+        foreach ($entry_tags as $entry_tag){
+            $em->remove($entry_tag);
             $em->flush();
         }
-        return $this->redirectToRoute('blog_index_category');
+        $em->remove($entry);
+        $em->flush();
+        return $this->redirectToRoute('blog_homepage');
     }
 
     public function editAction(Request $request, $id){
