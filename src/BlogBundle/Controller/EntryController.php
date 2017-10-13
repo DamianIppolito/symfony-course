@@ -107,38 +107,59 @@ class EntryController extends Controller
 
     public function editAction(Request $request, $id){
         $em = $this->getDoctrine()->getEntityManager();
+        $entry_repo = $em->getRepository("BlogBundle:Entry");
         $category_repo = $em->getRepository("BlogBundle:Category");
-        $category = $category_repo->find($id);
+        $entry = $entry_repo->find($id);
 
-        $form = $this->createForm(CategoryType::class, $category);
+
+        $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
         if($form->isSubmitted()) {
             if ($form->isValid()) {
-                $category->setName($form->get("name")->getData());
-                $category->setDescription($form->get("description")->getData());
+                $file = $form['image']->getData();
+                $ext = $file->guessExtension();
+                $file_name = time().".".$ext;
+                $file->move('uploads',$file_name);
+                $category = $category_repo->find($form->get("category")->getData());
+                $user = $this->getUser();
 
-                $em->persist($category);
+                $entry->setTitle($form->get("title")->getData());
+                $entry->setContent($form->get("content")->getData());
+                $entry->setStatus($form->get("status")->getData());
+                $entry->setImage($file_name);
+                $entry->setCategory($category);
+                $entry->setUser($user);
+
+                $em->persist($entry);
                 $flush = $em->flush();
+
+                $entry_repo->saveEntryTags(
+                    $form->get("tags")->getData(),
+                    $form->get("title")->getData(),
+                    $form->get("category")->getData(),
+                    $user
+                );
                 if($flush == null){
-                    $status = "La categoría se ha editado correctamente";
+                    $status = "La entrada se ha editado correctamente";
                     $messagebox = 'success';
                 }else{
-                    $status = "Error al editar la categoría";
+                    $status = "Error al editar la entrada";
                     $messagebox = 'danger';
                 }
             }else{
-                $status = "La categoría no se ha editado porque hay fallos de validación";
+                $status = "La entrada no se ha editado porque hay fallos de validación";
                 $messagebox = 'danger';
             }
 
             $this->session->getFlashBag()->add("status", $status);
             $this->session->getFlashBag()->add("messagebox", $messagebox);
 
-            return $this->redirectToRoute('blog_index_category');
+            return $this->redirectToRoute('blog_homepage');
         }
 
-        return $this->render("BlogBundle:Category:edit.html.twig", array(
-            "form" => $form->createView()
+        return $this->render("BlogBundle:Entry:edit.html.twig", array(
+            "form" => $form->createView(),
+            "entry" => $entry
         ));
     }
 }

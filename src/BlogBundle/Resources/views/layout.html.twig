@@ -40,6 +40,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     {% if app.user != null %}
+                                        <li><a href="{{ path('blog_add_entry')}}">Añadir Entrada</a></li>
                                         <li><a href="{{ path('blog_index_tag')}}">Etiquetas</a></li>
                                         <li><a href="{{ path('blog_index_category')}}">Categorías</a></li>
                                         <li role="separator" class="divider"></li>

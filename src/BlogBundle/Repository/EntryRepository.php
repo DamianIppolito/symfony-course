@@ -49,7 +49,7 @@ class EntryRepository extends \Doctrine\ORM\EntityRepository{
             $entryTag->setTag($tag);
             $em->persist($entryTag);
         }
-        $em->flush();
+        $flush = $em->flush();
         return $flush;
     }
 
