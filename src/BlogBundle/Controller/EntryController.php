@@ -37,6 +37,7 @@ class EntryController extends Controller
         if($form->isSubmitted()) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getEntityManager();
+                $entry_repo = $em->getRepository("BlogBundle:Entry");
                 $category_repo = $em->getRepository("BlogBundle:Category");
                 $file = $form['image']->getData();
                 $ext = $file->guessExtension();
@@ -55,6 +56,14 @@ class EntryController extends Controller
 
                 $em->persist($entry);
                 $flush = $em->flush();
+
+                $entry_repo->saveEntryTags(
+                    $form->get("tags")->getData(),
+                    $form->get("title")->getData(),
+                    $form->get("category")->getData(),
+                    $user
+                );
+
                 if($flush == null){
                     $status = "La categoría se ha creado correctamente";
                     $messagebox = 'success';
