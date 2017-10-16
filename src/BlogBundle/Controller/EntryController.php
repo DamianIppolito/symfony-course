@@ -97,8 +97,10 @@ class EntryController extends Controller
         $entry = $entry_repo->find($id);
         $entry_tags = $entry_tag_repo->findBy(array("entry"=>$entry));
         foreach ($entry_tags as $entry_tag){
-            $em->remove($entry_tag);
-            $em->flush();
+            if(is_object($entry_tag)) {
+                $em->remove($entry_tag);
+                $em->flush();
+            }
         }
         $em->remove($entry);
         $em->flush();
@@ -110,7 +112,11 @@ class EntryController extends Controller
         $entry_repo = $em->getRepository("BlogBundle:Entry");
         $category_repo = $em->getRepository("BlogBundle:Category");
         $entry = $entry_repo->find($id);
-
+        $tags = '';
+        foreach ($entry->getEntryTag() as $entry_tag){
+            $tags .= $entry_tag->getTag()->getName(). ", ";
+        }
+        $tags = substr($tags,0,-2);
 
         $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
@@ -132,6 +138,15 @@ class EntryController extends Controller
 
                 $em->persist($entry);
                 $flush = $em->flush();
+
+                $entry_tag_repo = $em->getRepository("BlogBundle:EntryTag");
+                $entry_tags = $entry_tag_repo->findBy(array("entry"=>$entry));
+                foreach ($entry_tags as $entry_tag){
+                    if(is_object($entry_tag)) {
+                        $em->remove($entry_tag);
+                        $em->flush();
+                    }
+                }
 
                 $entry_repo->saveEntryTags(
                     $form->get("tags")->getData(),
@@ -159,7 +174,8 @@ class EntryController extends Controller
 
         return $this->render("BlogBundle:Entry:edit.html.twig", array(
             "form" => $form->createView(),
-            "entry" => $entry
+            "entry" => $entry,
+            "tags" => $tags
         ));
     }
 }
