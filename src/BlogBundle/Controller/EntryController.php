@@ -49,10 +49,15 @@ class EntryController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $entry_repo = $em->getRepository("BlogBundle:Entry");
                 $category_repo = $em->getRepository("BlogBundle:Category");
+
                 $file = $form['image']->getData();
-                $ext = $file->guessExtension();
-                $file_name = time().".".$ext;
-                $file->move('uploads',$file_name);
+                if(!empty($file) && $file!=null) {
+                    $ext = $file->guessExtension();
+                    $file_name = time() . "." . $ext;
+                    $file->move('uploads', $file_name);
+                }else{
+                    $file_name = null;
+                }
                 $category = $category_repo->find($form->get("category")->getData());
                 $user = $this->getUser();
 
@@ -119,6 +124,7 @@ class EntryController extends Controller
         $entry_repo = $em->getRepository("BlogBundle:Entry");
         $category_repo = $em->getRepository("BlogBundle:Category");
         $entry = $entry_repo->find($id);
+        $entry_image = $entry->getImage();
         $tags = '';
         foreach ($entry->getEntryTag() as $entry_tag){
             $tags .= $entry_tag->getTag()->getName(). ", ";
@@ -130,9 +136,13 @@ class EntryController extends Controller
         if($form->isSubmitted()) {
             if ($form->isValid()) {
                 $file = $form['image']->getData();
-                $ext = $file->guessExtension();
-                $file_name = time().".".$ext;
-                $file->move('uploads',$file_name);
+                if(!empty($file) && $file!=null) {
+                    $ext = $file->guessExtension();
+                    $file_name = time() . "." . $ext;
+                    $file->move('uploads', $file_name);
+                }else{
+                    $file_name = $entry_image;
+                }
                 $category = $category_repo->find($form->get("category")->getData());
                 $user = $this->getUser();
 
