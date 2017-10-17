@@ -115,4 +115,25 @@ class CategoryController extends Controller
             "form" => $form->createView()
         ));
     }
+
+    public function categoryAction($id, $page=1){
+        $em = $this->getDoctrine()->getEntityManager();
+        $category_repo = $em->getRepository("BlogBundle:Category");
+        $category = $category_repo->find($id);
+
+        $pageSize = 5;
+        $entry_repo = $em->getRepository("BlogBundle:Entry");
+        $entries = $entry_repo->getCategoryEntries($category, $pageSize, $page);
+        $totalItems = count($entries);
+        $pagesCount = ceil($totalItems/$pageSize);
+
+        return $this->render("BlogBundle:Category:category.html.twig", array(
+            "category" => $category,
+            "categories" => $category_repo->findAll(),
+            "entries" => $entries,
+            "totalItems" => $totalItems,
+            "pagesCount" => $pagesCount,
+            "page" => $page,
+        ));
+    }
 }
