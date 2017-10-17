@@ -17,17 +17,24 @@ class EntryController extends Controller
         $this->session = new Session();
     }
 
-    public function indexAction(){
+    public function indexAction($page){
 
         $em = $this->getDoctrine()->getEntityManager();
         $entry_repo = $em->getRepository("BlogBundle:Entry");
         $category_repo = $em->getRepository("BlogBundle:Category");
-        $entries = $entry_repo->findAll();
         $categories = $category_repo->findAll();
+        $pageSize = 1;
+        $entries = $entry_repo->getPaginateEntries(1,$page);
+        $totalItems = count($entries);
+        $pagesCount = ceil($totalItems/$pageSize);
 
         return $this->render("BlogBundle:Entry:index.html.twig", array(
             "entries" => $entries,
-            "categories" => $categories
+            "categories" => $categories,
+            "totalItems" => $totalItems,
+            "pagesCount" => $pagesCount,
+            "page" => $page,
+            "page_m" => $page,
         ));
     }
 
